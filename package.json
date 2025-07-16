@@ -1,0 +1,144 @@
+{
+  "name": "ust-code-helper-100",
+  "displayName": "ust-code-helper-100",
+  "description": "used to help you get a code chat similar to github copilot with  enterprise grade api sand certifications",
+  "version": "0.0.5",
+  "publisher": "Raghu Pushpakath",
+  "engines": {
+    "vscode": "^1.100.2"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "ust-code-helper-100.startChat",
+        "title": "100 Start Custom AI Chat"
+      },
+      {
+        "command": "ust-code-helper-100.addToContext",
+        "title": "100 Add to Chat Context"
+      },
+      {
+        "command": "ust-code-helper-100.showChatHistory",
+        "title": "100 Show Chat History"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "ust-code-helper-100.addToContext",
+          "group": "navigation"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "ust-code-helper-100.addToContext",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "100 UST Custom AI Chat",
+      "properties": {
+        "customAiChat.baseUrl": {
+          "type": "string",
+          "default": "",
+          "description": "Custom OpenAI API base URL"
+        },
+        "customAiChat.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Custom OpenAI API key"
+        },
+        "customAiChat.modelHost": {
+          "type": "string",
+          "default": "OpenAI",
+          "enum": [
+            "OpenAI",
+            "AzureOpenAI"
+          ]
+        },
+        "customAiChat.deploymentName": {
+          "type": "string",
+          "default": "",
+          "description": "Model deployment name(for Azure OpenAI)",
+          "when": "customAiChat.modelHost === 'AzureOpenAI'"
+        },
+        "customAiChat.apiVersion": {
+          "type": "string",
+          "default": "",
+          "description": "Api version (for Azure OpenAI)",
+          "when": "customAiChat.modelHost === 'AzureOpenAI'"
+        },
+        "customAiChat.user": {
+          "type": "string",
+          "default": "",
+          "description": "Custom user name to use for the chat",
+          "when": "'customAiChat.modelHost === 'OpenAI'"
+        },
+        "customAiChat.model": {
+          "type": "string",
+          "default": "gpt-3.5-turbo",
+          "enum": [
+            "gpt-4",
+            "gpt-4-turbo-preview",
+            "gpt-3.5-turbo",
+            "gpt-4o",
+            "gpt-4o-mini",
+            "o1-mini",
+            "o1-preview"
+          ],
+          "description": "Selected AI model",
+          "when": "'customAiChat.modelHost === 'OpenAI'"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "vsce-package": "npm run package && vsce package",
+    "vsce-publish": "npm run package && vsce publish",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test",
+    "dev": "webpack --watch --mode development"
+  },
+  "dependencies": {
+    "https": "^1.0.0",
+    "node-fetch": "^2.7.0",
+    "node-forge": "^1.3.1",
+    "sql.js": "1.8.0",
+    "vcse": "^1.0.1"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.9",
+    "@types/node": "^20.19.4",
+    "@types/node-fetch": "^2.6.1",
+    "@types/sql.js": "^1.4.9",
+    "@types/vscode": "^1.95.0",
+    "@typescript-eslint/eslint-plugin": "^8.10.0",
+    "@typescript-eslint/parser": "^8.7.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1",
+    "copy-webpack-plugin": "^12.0.2",
+    "esbuild": "^0.25.6",
+    "eslint": "^9.13.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.6.3",
+    "webpack": "^5.95.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ppraghu/ust-code-helper-100.git"
+  }
+}
